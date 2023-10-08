@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://www.transfesa.com/common/schema/thumbnail"
+            targetNamespace="http://www.transfesa.com/common/schema/thumbnail" elementFormDefault="qualified"
+            xmlns:aba="http://www.transfesa.com/abast/schema/document"
+            xmlns:doc="http://www.transfesa.com/common/schema/document">
+            
+  <xsd:import schemaLocation="Abast_document.xsd" namespace="http://www.transfesa.com/abast/schema/document"/>
+  <xsd:import schemaLocation="Document.xsd" namespace="http://www.transfesa.com/common/schema/document"/>
+  
+  <xsd:element name="thumbnailProcessRequest" type="thumbnailProcessRequest_Type"/>
+  
+  <xsd:complexType name="thumbnailProcessRequest_Type">
+    <xsd:sequence>
+      <xsd:element name="uuid" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+      <xsd:element name="notificationData" type="notificationDataType" minOccurs="1" maxOccurs="1"/>
+      <xsd:element name="abastData" type="aba:abastDataType" minOccurs="1" maxOccurs="1"/>
+      <xsd:element name="document" type="doc:documentType" minOccurs="1" maxOccurs="1"/>
+      <xsd:element name="additional_Data" type="additional_Data_Type" minOccurs="1" maxOccurs="1"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  
+  <xsd:complexType name="additional_Data_Type">
+    <xsd:sequence>
+      <xsd:element name="CIDocument_Id" type="xsd:long" minOccurs="0" maxOccurs="1"/>
+      <xsd:element name="abast_Id" type="xsd:long" minOccurs="1" maxOccurs="1"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  
+  <xsd:complexType name="notificationDataType">
+    <xsd:sequence>
+      <xsd:element name="origin" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+      <xsd:element name="operationType" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    </xsd:sequence>
+  </xsd:complexType>
+</xsd:schema>

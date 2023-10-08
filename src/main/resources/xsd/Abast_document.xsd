@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://www.transfesa.com/abast/schema/document"
+            targetNamespace="http://www.transfesa.com/abast/schema/document" elementFormDefault="qualified"
+            xmlns:doc="http://www.transfesa.com/common/schema/document">
+  <xsd:import schemaLocation="Document.xsd" namespace="http://www.transfesa.com/common/schema/document"/>
+  
+  <xsd:element name="abastDocumentRequest" type="abastDocumentRequestType"/>
+  <xsd:element name="abastDocumentResponse" type="abastDocumentResponseType"/>
+  
+  <xsd:complexType name="abastDocumentRequestType">
+    <xsd:sequence>
+      <xsd:element name="abastData" type="abastDataType"/>
+      <xsd:element name="document" type="doc:documentType"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  
+  <xsd:complexType name="abastDataType">
+    <xsd:sequence>
+      <xsd:element name="idScanvisioDocument" type="xsd:int" minOccurs="0" maxOccurs="1"/>
+      <xsd:element name="companyCode" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+      <xsd:element name="typeId" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+      <xsd:element name="title" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+      <xsd:element name="mainDescription" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+      <!-- currentMillis --> <!-- (current-dateTime() - xs:dateTime("1970-01-01T00:00:00-00:00")) div xs:dayTimeDuration('PT0.001S') -->
+      <xsd:element name="idocPadre" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+      <xsd:element name="application" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+      <xsd:element name="user" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+      <xsd:element name="userRole" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+      <xsd:element name="documentDescription" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+      <xsd:element name="client" type="xsd:string" minOccurs="0" maxOccurs="1"/>
+      <xsd:element name="docNumber" type="xsd:string" minOccurs="0" maxOccurs="1"/>
+      
+      <!-- *************** notification data info ************** -->
+      <!-- id_audit -->
+      <!-- 
+      <xsd:element name="uuid" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+      <xsd:element name="origin" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+      <xsd:element name="operationType" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+      -->
+    </xsd:sequence>
+  </xsd:complexType>
+  
+  <xsd:complexType name="abastDocumentResponseType">
+    <xsd:all>
+      <xsd:element name="cdAbast" type="xsd:string" minOccurs="0" maxOccurs="1"/>
+      <xsd:element name="idDocAbast" type="xsd:string" minOccurs="0" maxOccurs="1"/>
+      <xsd:element name="cdError" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+      <xsd:element name="dsError" type="xsd:string" minOccurs="0" maxOccurs="1"/>
+    </xsd:all>
+  </xsd:complexType>
+  
+</xsd:schema>

@@ -1,0 +1,56 @@
+{
+  "type": "record",
+  "name": "KFK_EVENT_INSTANCES",
+  "namespace": "com.ccl.transfesa.interfaces.ws.domain.kafka",
+  "fields": [
+    {
+      "name": "ID",
+      "type": [
+        "null",
+        "long"
+      ],
+      "default": null
+    },
+    {
+      "name": "C_ID",
+      "type": [
+        "null",
+        "long"
+      ],
+      "default": null
+    },
+    {
+      "name": "EVT_DESTINATION",
+      "type": [
+        "null",
+        "string"
+      ],
+      "default": null
+    },
+    {
+      "name": "SOURCE_SYS",
+      "type": [
+        "null",
+        "string"
+      ],
+      "default": null
+    },
+    {
+      "name": "TARGET_SYS",
+      "type": [
+        "null",
+        "string"
+      ],
+      "default": null
+    },
+    {
+      "name": "PARAMS",
+      "type": [
+        "null",
+        "string"
+      ],
+      "default": null
+    }
+  ],
+  "connect.name": "com.ccl.transfesa.interfaces.ws.domain.kafka.KFK_EVENT_INSTANCES"
+}

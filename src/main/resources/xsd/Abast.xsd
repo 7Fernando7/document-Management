@@ -1,0 +1,336 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://www.abast.org"
+            targetNamespace="http://www.abast.org" elementFormDefault="qualified">
+  <xsd:element name="Request" type="RequestType"/>
+  <xsd:element name="RequestGet" type="RequestTypeGet"/>
+  <xsd:element name="RequestDelete" type="RequestTypeDelete"/>
+  <xsd:element name="RequestGetAll" type="RequestTypeGetAll"/>
+  <xsd:element name="ResponseAll" type="anyType"/>
+  
+  <xsd:complexType name="anyType">
+    <xsd:sequence>
+      <xsd:any namespace="##any" minOccurs="0" maxOccurs="unbounded" processContents="lax"/>
+    </xsd:sequence>
+    <xsd:anyAttribute namespace="##any" processContents="lax"/>
+  </xsd:complexType>
+
+  <xsd:element name="ResponseType">
+  <xsd:complexType>
+    <xsd:sequence>
+      <xsd:element name="codigo" type="xsd:string" minOccurs="0" maxOccurs="1"/>
+      <xsd:element name="errores" type="errorType" minOccurs="0" maxOccurs="unbounded"/>
+      <xsd:element name="item" type="itemResponseType" minOccurs="0" maxOccurs="1"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  </xsd:element>
+  <xsd:complexType name="ResponseTypeGetAll">
+    <xsd:sequence>
+      <xsd:element name="codigo" minOccurs="0"/>
+      <xsd:element name="errores" type="errorType" minOccurs="0" maxOccurs="unbounded"/>
+      <xsd:element name="item" type="itemGetAllType" minOccurs="0" maxOccurs="1"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="header">
+    <xsd:sequence>
+      <xsd:element name="_ts" minOccurs="1" maxOccurs="1"/>
+      <xsd:element name="clientId" minOccurs="1" maxOccurs="1"/>
+      <xsd:element name="hash" minOccurs="1" maxOccurs="1"/>
+      <xsd:element name="areadoc" minOccurs="1" maxOccurs="1"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="RequestType">
+    <xsd:sequence>
+      <xsd:element name="cabecera" type="cabeceraRequestType" minOccurs="0" maxOccurs="1"/>
+      <xsd:element name="anexos" type="anexoType" minOccurs="0" maxOccurs="1"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="RequestTypeGet">
+    <xsd:sequence>
+      <xsd:element name="cabecera" type="cabeceraRequestTypeGet" minOccurs="1" maxOccurs="1"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="RequestTypeDelete">
+    <xsd:sequence>
+      <xsd:element name="cabecera" type="cabeceraRequestTypeDelete" minOccurs="1" maxOccurs="1"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="RequestTypeGetAll">
+    <xsd:sequence>
+      <xsd:element name="cabecera" type="cabeceraRequestTypeGetAll" minOccurs="0" maxOccurs="1"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  
+  <xsd:complexType name="errorType">
+    <xsd:sequence>
+      <xsd:element name="code" minOccurs="0" maxOccurs="1"/>
+      <xsd:element name="message" minOccurs="0" maxOccurs="1"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="cabeceraRequestType">
+    <xsd:sequence>
+      <xsd:element name="empresa" type="empresaType" minOccurs="1" maxOccurs="1"/>
+      <xsd:element name="tipo" type="tipoType" minOccurs="1" maxOccurs="1"/>
+      <xsd:element name="titulo" minOccurs="1" maxOccurs="1">
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:string">
+            <xsd:maxLength value="100"/>
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:element>
+      <xsd:element name="descripcion" minOccurs="1" maxOccurs="1">
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:string">
+            <xsd:maxLength value="500"/>
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:element>
+      <xsd:element name="cliente" minOccurs="0" maxOccurs="1">
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:string">
+            <xsd:maxLength value="50"/>
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:element>
+      <xsd:element name="localizador" minOccurs="0" maxOccurs="1">
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:string">
+            <xsd:maxLength value="50"/>
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:element>
+      <xsd:element name="numeroDocumento" minOccurs="0" maxOccurs="1">
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:string">
+            <xsd:maxLength value="50"/>
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:element>
+      <xsd:element name="fechaDocumento" minOccurs="0" maxOccurs="1">
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:decimal">
+            <xsd:minInclusive value="-99999999999999999999"/>
+            <xsd:maxExclusive value="99999999999999999999"/>
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:element>
+      <xsd:element name="categoria" minOccurs="0" maxOccurs="1">
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:string">
+            <xsd:maxLength value="50"/>
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:element>
+      <xsd:element name="idocPadre" minOccurs="1" maxOccurs="1">
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:decimal">
+            <xsd:maxExclusive value="999999999999999"/>
+            <xsd:minInclusive value="-999999999999999"/>
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:element>
+      <xsd:element name="aplicacion" minOccurs="1" maxOccurs="1">
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:string">
+            <xsd:maxLength value="50"/>
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:element>
+      <xsd:element name="usuario" minOccurs="1" maxOccurs="1">
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:string">
+            <xsd:maxLength value="50"/>
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:element>
+      <xsd:element name="rolUsuario" minOccurs="1" maxOccurs="1">
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:string">
+            <xsd:maxLength value="50"/>
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="cabeceraRequestTypeGet">
+    <xsd:sequence>
+      <xsd:element name="id" minOccurs="1" maxOccurs="1">
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:decimal">
+            <xsd:maxExclusive value="999999999999999"/>
+            <xsd:minInclusive value="-999999999999999"/>
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="cabeceraRequestTypeDelete">
+    <xsd:sequence>
+      <xsd:element name="id" minOccurs="1" maxOccurs="1">
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:decimal">
+            <xsd:maxExclusive value="999999999999999"/>
+            <xsd:minInclusive value="-999999999999999"/>
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="empresaType">
+    <xsd:sequence>
+      <xsd:element name="codigo" minOccurs="1" maxOccurs="1">
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:string">
+            <xsd:maxLength value="20"/>
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="tipoType">
+    <xsd:sequence>
+      <xsd:element name="id" minOccurs="1" maxOccurs="1">
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:decimal">
+            <xsd:maxExclusive value="999999999999999"/>
+            <xsd:minInclusive value="-999999999999999"/>
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="anexoType">
+    <xsd:sequence>
+      <xsd:element name="principal" type="anexoPrincipalType" minOccurs="1" maxOccurs="1"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="anexoPrincipalType">
+    <xsd:sequence>
+      <xsd:element name="nombre" minOccurs="1" maxOccurs="1">
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:string">
+            <xsd:maxLength value="255"/>
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:element>
+      <xsd:element name="descripcion" minOccurs="1" maxOccurs="1">
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:string">
+            <xsd:maxLength value="500"/>
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:element>
+      <xsd:element name="binario" type="xsd:base64Binary" minOccurs="1" maxOccurs="1"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="itemResponseType">
+    <xsd:sequence>
+      <xsd:element name="cabecera" type="cabeceraResponseType" minOccurs="0" maxOccurs="1"/>
+      <xsd:element name="lineas"  type="lineasResponseType" minOccurs="0" maxOccurs="1"/>
+      <xsd:element name="anexos" type="anexoResponseType" minOccurs="0" maxOccurs="1"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="cabeceraResponseType">
+    <xsd:sequence>
+      <xsd:element name="nombreFichero" minOccurs="1" maxOccurs="1">
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:string">
+            <xsd:maxLength value="255"/>
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:element>
+      <xsd:element name="binario" type="xsd:base64Binary" minOccurs="1" maxOccurs="1"/>
+      <xsd:element name="id" minOccurs="0" maxOccurs="1"/>
+      <xsd:element name="createdBy" minOccurs="0" maxOccurs="1"/>
+      <xsd:element name="creationDate" minOccurs="0" maxOccurs="1"/>
+      <xsd:element name="lastUpdatedBy" minOccurs="0" maxOccurs="1"/>
+      <xsd:element name="lastUpdateDate" minOccurs="0" maxOccurs="1"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="lineasResponseType"/>
+
+  <xsd:complexType name="anexoResponseType">
+    <xsd:sequence>
+      <xsd:element name="principal" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+      <xsd:element name="secundario" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="cabeceraRequestTypeGetAll">
+    <xsd:sequence>
+      <xsd:element name="campos" minOccurs="0" maxOccurs="unbounded" type="parametrosType"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  
+  <xsd:complexType name="itemGetAllType">
+    <xsd:sequence>
+      <xsd:element name="campos" minOccurs="1" maxOccurs="unbounded" type="itemGetAllResponseType"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  
+  <xsd:complexType name="parametrosType">
+    <xsd:sequence>
+      <xsd:element name="nombre" minOccurs="0" maxOccurs="1">
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:string">
+            <xsd:enumeration value="id"/>
+            <xsd:enumeration value="codigoEmpresa"/>
+            <xsd:enumeration value="tipo"/>
+            <xsd:enumeration value="titulo"/>
+            <xsd:enumeration value="descripcion"/>
+            <xsd:enumeration value="cliente"/>
+            <xsd:enumeration value="localizador"/>
+            <xsd:enumeration value="numeroDocumento"/>
+            <xsd:enumeration value="fechaDocumento"/>
+            <xsd:enumeration value="categoria"/>
+            <xsd:enumeration value="idocPadre"/>
+            <xsd:enumeration value="aplicacion"/>
+            <xsd:enumeration value="usuario"/>
+            <xsd:enumeration value="rolUsuario"/>
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:element>
+      <xsd:element name="valor" minOccurs="0" maxOccurs="1">
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:string">
+            <xsd:maxLength value="500"/>
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:element>
+      <xsd:element name="valorHasta" minOccurs="0" maxOccurs="1">
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:string">
+            <xsd:maxLength value="500"/>
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:element>
+      <xsd:element name="tipo" minOccurs="0" maxOccurs="1">
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:string">
+            <xsd:enumeration value="NUMERO_ENTERO"/>
+            <xsd:enumeration value="FECHA"/>
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="itemGetAllResponseType">
+    <xsd:sequence>
+      <xsd:element name="id"/>
+      <xsd:element name="codigoEmpresa"/>
+      <xsd:element name="tipo"/>
+      <xsd:element name="titulo"/>
+      <xsd:element name="descripcion"/>
+      <xsd:element name="cliente"/>
+      <xsd:element name="localizador"/>
+      <xsd:element name="numeroDocumento"/>
+      <xsd:element name="fechaDocumento"/>
+      <xsd:element name="categoria"/>
+      <xsd:element name="idocPadre"/>
+      <xsd:element name="aplicacion"/>
+      <xsd:element name="usuario"/>
+      <xsd:element name="rolUsuario"/>
+      <xsd:element name="fechaCreacion"/>
+    </xsd:sequence>
+  </xsd:complexType>
+</xsd:schema>
